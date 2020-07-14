@@ -29,7 +29,7 @@ buttons.forEach((button, index) => {
 		turn.textContent = board.symbol;
 
 		const cells = board.checkBoard();
-		if (cells.length > 0 && board.playerWon !== null) {
+		if (board.playerWon !== null) {
 			heading.textContent =
 				board.playerWon > 0 ? `Winner : Player ${board.playerWon}` : 'It is a Tie';
 			message.textContent = 'Click on Play Again';
