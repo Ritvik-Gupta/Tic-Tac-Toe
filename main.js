@@ -31,7 +31,7 @@ buttons.forEach((button, index) => {
 		const cells = board.checkBoard();
 		if (board.playerWon !== null) {
 			heading.textContent =
-				board.playerWon > 0 ? `Winner : Player ${board.playerWon}` : 'It is a Tie';
+				board.playerWon > 0 ? `Winner is Player ${board.playerWon}` : 'It is a Tie';
 			message.textContent = 'Click on Play Again';
 			turn.textContent = '-';
 			reset.textContent = 'Play Again';
