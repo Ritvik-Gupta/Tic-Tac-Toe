@@ -18,34 +18,34 @@ class Board {
 		for (let i = 0; i < grid.length; ++i) {
 			if (grid[i][0] !== 0 && grid[i].every(el => el === grid[i][0])) {
 				this.playerWon = grid[i][0];
-				return { winner: grid[i][0] };
+				return grid[i].map((_, j) => [i, j]);
 			}
 		}
 
 		for (let i = 0; i < trans.length; ++i) {
 			if (trans[i][0] !== 0 && trans[i].every(el => el === trans[i][0])) {
 				this.playerWon = trans[i][0];
-				return { winner: trans[i][0] };
+				return trans[i].map((_, j) => [j, i]);
 			}
 		}
 
 		if (diag1[0] !== 0 && diag1.every(el => el === diag1[0])) {
 			this.playerWon = diag1[0];
-			return { winner: diag1[0] };
+			return diag1.map((_, j) => [j, j]);
 		}
 
 		if (diag2[0] !== 0 && diag2.every(el => el === diag2[0])) {
 			this.playerWon = diag2[0];
-			return { winner: diag2[0] };
+			return diag2.map((_, j) => [j, diag2.length - 1 - j]);
 		}
 
 		if (grid.every(row => row.every(el => el !== 0))) {
 			this.playerWon = 0;
-			return { winner: 0 };
+			return [];
 		}
 
 		this.playerWon = null;
-		return null;
+		return [];
 	}
 
 	print() {

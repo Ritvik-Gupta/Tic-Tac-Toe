@@ -28,13 +28,18 @@ buttons.forEach((button, index) => {
 		message.textContent = `Player ${board.currentPlayer}'s turn`;
 		turn.textContent = board.symbol;
 
-		board.checkBoard();
-		if (board.playerWon !== null) {
+		const cells = board.checkBoard();
+		if (cells.length > 0 && board.playerWon !== null) {
 			heading.textContent =
 				board.playerWon > 0 ? `Winner : Player ${board.playerWon}` : 'It is a Tie';
 			message.textContent = 'Click on Play Again';
 			turn.textContent = '-';
 			reset.textContent = 'Play Again';
+
+			cells.forEach(cell => {
+				const index = boardSize * cell[0] + cell[1];
+				buttons[index].classList.add('highlight');
+			});
 		}
 
 		board.print();
@@ -45,7 +50,7 @@ function resetBoard() {
 	board.resetBoard();
 
 	buttons.forEach(button => {
-		button.classList.remove('player1', 'player2');
+		button.classList.remove('player1', 'player2', 'highlight');
 		button.classList.add('empty');
 		button.textContent = '';
 	});
