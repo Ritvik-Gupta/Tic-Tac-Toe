@@ -4,18 +4,15 @@ const message = document.querySelector('#message');
 const reset = document.querySelector('#reset');
 const turn = document.querySelector('#turn');
 
+const boardSize = 3;
 const board = new Board(['X', 'O']);
-resetBoardDOM();
+resetBoard();
 
-reset.addEventListener('click', () => {
-	board.resetBoard();
-	resetBoardDOM();
-	console.log('Reset Board');
-});
+reset.addEventListener('click', resetBoard);
 
 buttons.forEach((button, index) => {
-	button.setAttribute('i', (index - (index % 3)) / 3);
-	button.setAttribute('j', index % 3);
+	button.setAttribute('i', (index - (index % boardSize)) / boardSize);
+	button.setAttribute('j', index % boardSize);
 
 	button.addEventListener('click', ({ target }) => {
 		const i = target.getAttribute('i');
@@ -29,12 +26,14 @@ buttons.forEach((button, index) => {
 
 		board.setBoard(i, j);
 		message.textContent = `Player ${board.currentPlayer}'s turn`;
+		turn.textContent = board.symbol;
 
 		board.checkBoard();
 		if (board.playerWon !== null) {
 			heading.textContent =
 				board.playerWon > 0 ? `Winner : Player ${board.playerWon}` : 'It is a Tie';
-			message.textContent = 'Click on Play Again to Reset';
+			message.textContent = 'Click on Play Again';
+			turn.textContent = '-';
 			reset.textContent = 'Play Again';
 		}
 
@@ -42,13 +41,16 @@ buttons.forEach((button, index) => {
 	});
 });
 
-function resetBoardDOM() {
+function resetBoard() {
+	board.resetBoard();
+
 	buttons.forEach(button => {
 		button.classList.remove('player1', 'player2');
 		button.classList.add('empty');
 		button.textContent = '';
 	});
-	message.textContent = `Player 1's turn`;
+	message.textContent = `Player ${board.currentPlayer}'s turn`;
+	turn.textContent = board.symbol;
 	heading.textContent = 'Tic Tac Toe';
 	reset.textContent = 'Reset Game';
 }

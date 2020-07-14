@@ -1,24 +1,13 @@
 class Board {
 	constructor(symbols) {
 		this.symbols = symbols;
-		this.resetBoard();
+		this.currentPlayer = 1;
+		this.playerWon = null;
+		this.grid = [];
 	}
 
 	get symbol() {
 		return this.symbols[this.currentPlayer - 1];
-	}
-
-	print() {
-		console.groupCollapsed('Board Config ...');
-		console.log('Current Player :\t', this.currentPlayer);
-		console.log('Player Won :\t', this.playerWon);
-		console.table(this.grid);
-		console.groupEnd();
-	}
-
-	setBoard(i, j) {
-		this.grid[i][j] = this.currentPlayer;
-		this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
 	}
 
 	checkBoard() {
@@ -59,6 +48,19 @@ class Board {
 		return null;
 	}
 
+	print() {
+		console.groupCollapsed('Board Config ...');
+		console.log('Current Player :\t', this.currentPlayer);
+		console.log('Player Won :\t', this.playerWon);
+		console.table(this.grid);
+		console.groupEnd();
+	}
+
+	setBoard(i, j) {
+		this.grid[i][j] = this.currentPlayer;
+		this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
+	}
+
 	resetBoard() {
 		this.currentPlayer = 1;
 		this.playerWon = null;
@@ -67,6 +69,8 @@ class Board {
 			this.grid[i] = [];
 			for (let j = 0; j < 3; ++j) this.grid[i][j] = 0;
 		}
+
+		console.warn('Reset Board');
 	}
 
 	static transpose(array) {
