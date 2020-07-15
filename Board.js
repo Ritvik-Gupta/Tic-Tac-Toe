@@ -11,7 +11,7 @@ class Board {
 	}
 
 	checkBoard() {
-		const grid = this.grid;
+		const { grid } = this;
 		const trans = Board.transpose(grid);
 		const { diag1, diag2 } = Board.diagonals(grid);
 
